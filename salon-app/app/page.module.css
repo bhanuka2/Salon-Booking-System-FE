@@ -1,0 +1,343 @@
+/* Layout & Navbar */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 1.5rem 0;
+    background: rgba(5, 5, 5, 0.8);
+    backdrop-filter: blur(10px);
+    z-index: 100;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.navContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--color-text-main);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.logoAccent {
+    color: var(--color-primary);
+}
+
+.navLinks {
+    display: flex;
+    gap: 2.5rem;
+    align-items: center;
+}
+
+.navLink {
+    color: var(--color-text-main);
+    font-weight: 500;
+    transition: var(--transition-smooth);
+    position: relative;
+}
+
+.navLink::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -4px;
+    left: 0;
+    background-color: var(--color-primary);
+    transition: var(--transition-smooth);
+}
+
+.navLink:hover::after {
+    width: 100%;
+}
+
+.navLink:hover {
+    color: var(--color-primary);
+}
+
+/* Hero Section */
+.hero {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.heroBackground {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.heroImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.6;
+}
+
+.heroOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, rgba(5, 5, 5, 0.9) 0%, rgba(5, 5, 5, 0.4) 100%);
+}
+
+.heroContent {
+    max-width: 600px;
+    padding-top: 5rem;
+}
+
+.heroSubtitle {
+    color: var(--color-primary);
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.heroTitle {
+    font-size: 4.5rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.1;
+    text-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.heroDesc {
+    font-size: 1.2rem;
+    color: var(--color-text-muted);
+    margin-bottom: 2.5rem;
+    line-height: 1.8;
+}
+
+.heroActions {
+    display: flex;
+    gap: 1.5rem;
+}
+
+/* Services Section */
+.services {
+    padding: 8rem 0;
+    background-color: var(--color-bg);
+    position: relative;
+}
+
+.sectionHeader {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.sectionTitle {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.sectionTitle span {
+    color: var(--color-primary);
+}
+
+.sectionDesc {
+    color: var(--color-text-muted);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.serviceGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.serviceCard {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    padding: 3rem 2rem;
+    border-radius: 12px;
+    text-align: center;
+    transition: var(--transition-smooth);
+    position: relative;
+    overflow: hidden;
+}
+
+.serviceCard::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: var(--color-primary);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: var(--transition-smooth);
+}
+
+.serviceCard:hover {
+    transform: translateY(-10px);
+    background: var(--color-surface-hover);
+    border-color: var(--color-primary);
+    box-shadow: 0 10px 30px rgba(255, 94, 0, 0.05);
+}
+
+.serviceCard:hover::before {
+    transform: scaleX(1);
+}
+
+.serviceIcon {
+    width: 70px;
+    height: 70px;
+    background: rgba(255, 94, 0, 0.1);
+    color: var(--color-primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    font-size: 2rem;
+    transition: var(--transition-smooth);
+}
+
+.serviceCard:hover .serviceIcon {
+    background: var(--color-primary);
+    color: #fff;
+    transform: scale(1.1);
+}
+
+.serviceTitle {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.servicePrice {
+    color: var(--color-primary);
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.serviceDesc {
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+}
+
+/* Booking Section */
+.booking {
+    padding: 8rem 0;
+    background: var(--color-surface);
+    position: relative;
+    border-top: 1px solid var(--color-border);
+}
+
+.bookingContainer {
+    display: flex;
+    gap: 4rem;
+    align-items: center;
+}
+
+.bookingInfo {
+    flex: 1;
+}
+
+.bookingFormWrapper {
+    flex: 1;
+    background: var(--color-bg);
+    padding: 3rem;
+    border-radius: 16px;
+    border: 1px solid var(--color-border);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.formGroup {
+    margin-bottom: 1.5rem;
+}
+
+.formLabel {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.formInput,
+.formSelect,
+.formDate {
+    width: 100%;
+    padding: 1rem;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    color: var(--color-text-main);
+    border-radius: 8px;
+    font-family: inherit;
+    transition: var(--transition-smooth);
+    color-scheme: dark;
+}
+
+.formInput:focus,
+.formSelect:focus,
+.formDate:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 2px rgba(255, 94, 0, 0.2);
+}
+
+.submitBtn {
+    width: 100%;
+    margin-top: 1rem;
+}
+
+/* Footer */
+.footer {
+    background: var(--color-bg);
+    padding: 4rem 0 2rem;
+    border-top: 1px solid var(--color-border);
+    text-align: center;
+}
+
+.footerLogo {
+    font-size: 2rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    color: var(--color-primary);
+}
+
+.footerText {
+    color: var(--color-text-muted);
+    margin-bottom: 2rem;
+}
+
+.footerCopy {
+    padding-top: 2rem;
+    border-top: 1px solid var(--color-border);
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .heroTitle {
+        font-size: 3rem;
+    }
+
+    .bookingContainer {
+        flex-direction: column;
+    }
+
+    .navLinks {
+        display: none;
+    }
+}

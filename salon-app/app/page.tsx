@@ -1,65 +1,174 @@
-import Image from "next/image";
+"use client";
 
+import Image from "next/image";
+import styles from "./page.module.css";
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+    <>
+      <nav className={styles.navbar}>
+        <div className={`container ${styles.navContainer}`}>
+          <div className={styles.logo}>
             <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
+              src="/images/logoPure.PNG"
+              alt="AURA Logo"
+              width={140}
+              height={45}
+              style={{ objectFit: "contain" }}
+              priority
             />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+          </div>
+          <div className={styles.navLinks}>
+            <a href="#home" className={styles.navLink}>Home</a>
+            <a href="#services" className={styles.navLink}>Services</a>
+            <a href="#booking" className={styles.navLink}>Booking</a>
+            <button className="btn btn-primary" onClick={() => document.getElementById('booking')?.scrollIntoView({ behavior: 'smooth' })}>
+              Book Now
+            </button>
+          </div>
         </div>
-      </main>
-    </div>
+      </nav>
+
+      <section id="home" className={styles.hero}>
+        <div className={styles.heroBackground}>
+          <Image
+            src="/salon-hero.png"
+            alt="Premium Salon Interior"
+            className={styles.heroImage}
+            fill
+            priority
+          />
+          <div className={styles.heroOverlay}></div>
+        </div>
+
+        <div className={`container ${styles.heroContent} animate-fade-in`}>
+          <span className={styles.heroSubtitle}>Premium Experience</span>
+          <h1 className={styles.heroTitle}>Mastering the Art of Styling.</h1>
+          <p className={styles.heroDesc}>
+            Elevate your look with our professional hairdressers. We offer a bespoke
+            salon experience focused on luxury, style, and extreme attention to detail.
+          </p>
+          <div className={styles.heroActions}>
+            <button className="btn btn-primary" onClick={() => document.getElementById('booking')?.scrollIntoView({ behavior: 'smooth' })}>
+              Book Appointment
+            </button>
+            <button className="btn btn-outline" onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })}>
+              Our Services
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section id="services" className={styles.services}>
+        <div className="container">
+          <div className={styles.sectionHeader}>
+            <h2 className={styles.sectionTitle}>Signature <span>Services</span></h2>
+            <p className={styles.sectionDesc}>
+              Experience our curated selection of premium treatments. Each service is tailored to your unique style and needs.
+            </p>
+          </div>
+
+          <div className={styles.serviceGrid}>
+            <div className={styles.serviceCard}>
+              <div className={styles.serviceIcon}>✂️</div>
+              <h3 className={styles.serviceTitle}>Precision Cut</h3>
+              <div className={styles.servicePrice}>From $85</div>
+              <p className={styles.serviceDesc}>Consultation, bespoke cut, and signature blowout styling tailored to your face shape.</p>
+            </div>
+
+            <div className={styles.serviceCard}>
+              <div className={styles.serviceIcon}>🎨</div>
+              <h3 className={styles.serviceTitle}>Color & Highlights</h3>
+              <div className={styles.servicePrice}>From $150</div>
+              <p className={styles.serviceDesc}>Expert color matching, balayage, or full highlights using premium vegan color products.</p>
+            </div>
+
+            <div className={styles.serviceCard}>
+              <div className={styles.serviceIcon}>✨</div>
+              <h3 className={styles.serviceTitle}>Keratin Treatment</h3>
+              <div className={styles.servicePrice}>From $250</div>
+              <p className={styles.serviceDesc}>Transform frizzy hair into smooth, silky locks with our signature smoothing treatment.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="booking" className={styles.booking}>
+        <div className={`container ${styles.bookingContainer}`}>
+          <div className={styles.bookingInfo}>
+            <h2 className={styles.sectionTitle}>Reserve Your <span>Spot</span></h2>
+            <p className={styles.sectionDesc} style={{ margin: "1rem 0 2rem", textAlign: "left" }}>
+              Ready for a transformation? Fill out the form to request an appointment.
+              Our team will get back to you immediately to confirm your booking.
+            </p>
+            <div style={{ marginTop: "2rem" }}>
+              <div style={{ marginBottom: "1rem", display: "flex", alignItems: "center", gap: "1rem" }}>
+                <span style={{ color: "var(--color-primary)", fontSize: "1.5rem" }}>📍</span>
+                <span>123 Elite Avenue, New York, NY 10001</span>
+              </div>
+              <div style={{ marginBottom: "1rem", display: "flex", alignItems: "center", gap: "1rem" }}>
+                <span style={{ color: "var(--color-primary)", fontSize: "1.5rem" }}>📞</span>
+                <span>+1 (555) 123-4567</span>
+              </div>
+              <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+                <span style={{ color: "var(--color-primary)", fontSize: "1.5rem" }}>🕰️</span>
+                <span>Mon-Sat: 9AM - 8PM</span>
+              </div>
+            </div>
+          </div>
+
+          <div className={styles.bookingFormWrapper}>
+            <form onSubmit={(e) => e.preventDefault()}>
+              <div className={styles.formGroup}>
+                <label className={styles.formLabel}>Full Name</label>
+                <input type="text" className={styles.formInput} placeholder="John Doe" required />
+              </div>
+
+              <div className={styles.formGroup}>
+                <label className={styles.formLabel}>Email Address</label>
+                <input type="email" className={styles.formInput} placeholder="john@example.com" required />
+              </div>
+
+              <div className={styles.formGroup}>
+                <label className={styles.formLabel}>Service</label>
+                <select className={styles.formSelect} required>
+                  <option value="">Select a service</option>
+                  <option value="cut">Precision Cut</option>
+                  <option value="color">Color & Highlights</option>
+                  <option value="keratin">Keratin Treatment</option>
+                  <option value="styling">Event Styling</option>
+                </select>
+              </div>
+
+              <div className={styles.formGroup}>
+                <label className={styles.formLabel}>Preferred Date</label>
+                <input type="date" className={styles.formDate} required />
+              </div>
+
+              <button type="submit" className={`btn btn-primary ${styles.submitBtn}`}>
+                Confirm Reservation
+              </button>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <footer className={styles.footer}>
+        <div className="container">
+          <div className={styles.footerLogo}>
+            <Image
+              src="/images/logoPure.PNG"
+              alt="AURA Logo"
+              width={140}
+              height={45}
+              style={{ objectFit: "contain" }}
+            />
+          </div>
+          <p className={styles.footerText}>The premier destination for luxury haircare and styling.</p>
+          <div className={styles.footerCopy}>
+            &copy; {new Date().getFullYear()} AURA Premium Salon. All rights reserved. Designed with precision.
+          </div>
+        </div>
+      </footer>
+    </>
   );
 }
