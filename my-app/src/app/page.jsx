@@ -36,7 +36,7 @@ const featuredServices = [
 export default function HomePage() {
   return (
     <>
-      {/* HERO SECTION - REFACTORED FOR COMPLETE IMAGE & NO HYDRATION ERRORS */}
+      {/* HERO SECTION */}
       <section className="hero-split" style={{
         minHeight: '100vh',
         paddingTop: '80px',
@@ -62,7 +62,7 @@ export default function HomePage() {
           }} />
         </div>
 
-        {/* Mobile Background (Managed by CSS classes to avoid hydration delta) */}
+        {/* Mobile Background overlay */}
         <div className="hero-bg-mobile" style={{ display: 'none' }}>
           <Image src="/hero_real.jpg" alt="Mobile BG" fill style={{ objectFit: 'cover', opacity: 0.3 }} />
         </div>
@@ -93,7 +93,7 @@ export default function HomePage() {
                 Experience high-performance hair artistry in an environment engineered for technical excellence.
               </p>
 
-              <div style={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap', justifyContent: 'inherit' }}>
+              <div style={{ display: 'flex', gap: '1.5rem', flexWrap: 'wrap' }}>
                 <Link href="/booking" className="btn-primary" style={{ padding: '1.25rem 4rem' }}>
                   Book Session
                 </Link>
