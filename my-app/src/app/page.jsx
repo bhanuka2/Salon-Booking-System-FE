@@ -6,28 +6,28 @@ const featuredServices = [
   {
     image: '/service_haircut.png',
     title: 'Master Haircut',
-    desc: 'Signature precision cuts by Ruwan Chandana himself.',
+    desc: 'Signature precision cuts by Ruwan Chandana.',
     price: '$45',
     time: '45 min'
   },
   {
     image: '/service_coloring.png',
     title: 'Technical Color',
-    desc: 'Advanced coloring techniques, from balayage to full gloss.',
+    desc: 'Advanced coloring techniques, from balayage to gloss.',
     price: '$95',
     time: '120 min'
   },
   {
     image: '/service_grooming.png',
     title: 'Grooming Luxe',
-    desc: 'Premium beard shaping and facial grooming for the modern man.',
+    desc: 'Premium beard shaping and facial grooming.',
     price: '$35',
     time: '30 min'
   },
   {
     image: '/service_scalp.png',
     title: 'Scalp Therapy',
-    desc: 'Invigorating treatments to nourish and revitalize from the roots.',
+    desc: 'Invigorating treatments to nourish and revitalize.',
     price: '$60',
     time: '45 min'
   },
@@ -107,94 +107,37 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* REFACTORED "WHY US" SECTION - UNCOMMON ANIMATIONS */}
-      <section className="section" style={{ background: '#050505', borderTop: '1px solid var(--border)' }}>
+      {/* REPLACED ORDER: 1. SIGNATURE WORK (NOW FIRST) */}
+      <section className="section" style={{ borderBottom: '1px solid var(--border)' }}>
         <div className="container">
           <div style={{ textAlign: 'center', marginBottom: '5rem' }}>
-            <div className="badge" style={{ marginBottom: '1.5rem' }}>The Standard</div>
-            <h2 className="font-serif" style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', fontWeight: 800 }}>
-              Uncommon <span className="text-gradient">Experience</span>
+            <div className="badge" style={{ marginBottom: '1.5rem' }}>The Collection</div>
+            <h2 className="font-serif" style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', fontWeight: 800 }}>
+              Signature <span className="text-gradient">Selection</span>
             </h2>
-          </div>
-
-          <div className="grid-3">
-            <div className="uncommon-card">
-              <div className="icon-wrapper">
-                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ color: 'var(--primary)' }}>
-                  <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" fill="rgba(227, 30, 36, 0.1)" />
-                </svg>
-              </div>
-              <h3 style={{ fontWeight: 900, fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.2em', marginBottom: '0.5rem' }}>
-                Instant Booking
-              </h3>
-              <div className="divider" />
-              <p style={{ color: 'var(--text-dim)', fontSize: '0.9rem', lineHeight: 1.8 }}>
-                Reserve your spot in under 60 seconds. Our platform is built for the high-speed lifestyle of our elite clientele.
-              </p>
-            </div>
-
-            <div className="uncommon-card">
-              <div className="icon-wrapper">
-                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ color: 'var(--primary)' }}>
-                  <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" fill="rgba(227, 30, 36, 0.1)" />
-                </svg>
-              </div>
-              <h3 style={{ fontWeight: 900, fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.2em', marginBottom: '0.5rem' }}>
-                Master Artistry
-              </h3>
-              <div className="divider" />
-              <p style={{ color: 'var(--text-dim)', fontSize: '0.9rem', lineHeight: 1.8 }}>
-                Not just a haircut, but a structural masterpiece. Every stroke is guided by 15 years of technical expertise.
-              </p>
-            </div>
-
-            <div className="uncommon-card">
-              <div className="icon-wrapper">
-                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ color: 'var(--primary)' }}>
-                  <path d="M6 3h12l4 6-10 12L2 9z" fill="rgba(227, 30, 36, 0.1)" />
-                </svg>
-              </div>
-              <h3 style={{ fontWeight: 900, fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.2em', marginBottom: '0.5rem' }}>
-                Premium Care
-              </h3>
-              <div className="divider" />
-              <p style={{ color: 'var(--text-dim)', fontSize: '0.9rem', lineHeight: 1.8 }}>
-                We curate only the world's most exclusive treatment lines. Bio-scientific ingredients for hair health.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CATALOG MENU */}
-      <section className="section">
-        <div className="container">
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '4rem', gap: '2rem', flexWrap: 'wrap' }}>
-            <div>
-              <div className="badge" style={{ marginBottom: '1rem' }}>The Collection</div>
-              <h2 className="font-serif" style={{ fontSize: 'clamp(2.5rem, 5vw, 3.5rem)', fontWeight: 800 }}>
-                Signature <span className="text-gradient">Work</span>
-              </h2>
-            </div>
-            <Link href="/services" style={{
-              color: 'var(--primary)', fontWeight: 700, fontSize: '0.9rem',
-              textTransform: 'uppercase', letterSpacing: '0.1em', borderBottom: '2px solid var(--primary)'
-            }}>
-              Full Catalog
-            </Link>
+            <p style={{ color: 'var(--text-dim)', maxWidth: 600, margin: '0 auto', lineHeight: 1.8 }}>
+              Explore our curated menu of high-performance treatments designed for precision and style.
+            </p>
           </div>
 
           <div className="grid-4">
             {featuredServices.map(s => (
               <div key={s.title} className="card" style={{
                 overflow: 'hidden', padding: 0, display: 'flex', flexDirection: 'column',
-                transition: 'transform 0.4s cubic-bezier(0.23, 1, 0.32, 1)',
-                cursor: 'pointer'
+                transition: 'all 0.4s cubic-bezier(0.23, 1, 0.32, 1)',
+                cursor: 'pointer',
+                border: '1px solid var(--border)'
               }}
-                onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.02)'}
-                onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
+                onMouseEnter={e => {
+                  e.currentTarget.style.transform = 'translateY(-12px)';
+                  e.currentTarget.style.borderColor = 'var(--primary)';
+                }}
+                onMouseLeave={e => {
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.borderColor = 'var(--border)';
+                }}
               >
-                <div style={{ position: 'relative', width: '100%', height: '260px' }}>
+                <div style={{ position: 'relative', width: '100%', height: '300px' }}>
                   <Image
                     src={s.image}
                     alt={s.title}
@@ -204,7 +147,7 @@ export default function HomePage() {
                   <div style={{
                     position: 'absolute',
                     inset: 0,
-                    background: 'linear-gradient(0deg, rgba(0,0,0,0.9) 0%, transparent 60%)'
+                    background: 'linear-gradient(0deg, rgba(0,0,0,0.9) 0%, transparent 50%)'
                   }} />
                   <div style={{
                     position: 'absolute',
@@ -212,28 +155,28 @@ export default function HomePage() {
                     display: 'flex', gap: '0.75rem', alignItems: 'center'
                   }}>
                     <span style={{
-                      background: 'var(--primary)', color: 'white', padding: '0.3rem 0.8rem',
-                      borderRadius: '2px', fontSize: '0.8rem', fontWeight: 900
+                      background: 'var(--primary)', color: 'white', padding: '0.4rem 1rem',
+                      borderRadius: '4px', fontSize: '0.9rem', fontWeight: 900
                     }}>{s.price}</span>
                   </div>
                 </div>
 
                 <div style={{ padding: '2rem', flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
-                  <h3 style={{ fontWeight: 900, fontSize: '0.9rem', marginBottom: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
+                  <h4 style={{ fontWeight: 900, fontSize: '0.85rem', marginBottom: '1rem', textTransform: 'uppercase', letterSpacing: '0.15em' }}>
                     {s.title}
-                  </h3>
-                  <p style={{ color: 'var(--text-dim)', fontSize: '0.85rem', lineHeight: 1.8, marginBottom: '2rem', flexGrow: 1 }}>
+                  </h4>
+                  <p style={{ color: 'var(--text-dim)', fontSize: '0.85rem', lineHeight: 1.7, marginBottom: '2rem', flexGrow: 1 }}>
                     {s.desc}
                   </p>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <span style={{ color: 'var(--text-muted)', fontSize: '0.7rem', fontWeight: 800, textTransform: 'uppercase' }}>
-                      {s.time}
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid var(--border)', paddingTop: '1.2rem' }}>
+                    <span style={{ color: 'var(--text-muted)', fontSize: '0.7rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                      {s.time} Session
                     </span>
                     <Link href="/booking" style={{
                       color: 'var(--primary)', fontWeight: 800, fontSize: '0.8rem',
                       textTransform: 'uppercase', letterSpacing: '0.1em'
                     }}>
-                      Book Now
+                      Book Spot →
                     </Link>
                   </div>
                 </div>
@@ -243,29 +186,95 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* REPLACED ORDER: 2. UNCOMMON EXPERIENCE (NOW SECOND) */}
+      <section className="section" style={{ background: '#050505' }}>
+        <div className="container">
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4rem', alignItems: 'center', marginBottom: '4rem' }}>
+            <div>
+              <div className="badge" style={{ marginBottom: '1.5rem' }}>The Pillar</div>
+              <h2 className="font-serif" style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)', fontWeight: 800, lineHeight: 1.1 }}>
+                Technically <span className="text-gradient">Superior.</span> <br />
+                Artistically Bound.
+              </h2>
+            </div>
+            <p style={{ color: 'var(--text-muted)', fontSize: '1.1rem', lineHeight: 1.8 }}>
+              At Salon Ru Zero One, we've redefined the concept of hair styling. It's no longer just a service; it's a precision-engineered experience tailored to the elite.
+            </p>
+          </div>
+
+          <div className="grid-3">
+            <div className="uncommon-card">
+              <div className="icon-wrapper">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" style={{ color: 'var(--primary)' }}>
+                  <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" fill="rgba(227, 30, 36, 0.05)" />
+                </svg>
+              </div>
+              <h3 style={{ fontWeight: 900, fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '0.2em', marginBottom: '0.5rem' }}>
+                Instant Booking
+              </h3>
+              <div className="divider" />
+              <p style={{ color: 'var(--text-dim)', fontSize: '0.9rem', lineHeight: 1.8 }}>
+                Access our elite stylists through our high-speed digital platform. Efficiency at the core of luxury.
+              </p>
+            </div>
+
+            <div className="uncommon-card">
+              <div className="icon-wrapper">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" style={{ color: 'var(--primary)' }}>
+                  <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" fill="rgba(227, 30, 36, 0.05)" />
+                </svg>
+              </div>
+              <h3 style={{ fontWeight: 900, fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '0.2em', marginBottom: '0.5rem' }}>
+                Master Artistry
+              </h3>
+              <div className="divider" />
+              <p style={{ color: 'var(--text-dim)', fontSize: '0.9rem', lineHeight: 1.8 }}>
+                Every cut is a structural blueprint designed for your individual profile. Mathematical precision.
+              </p>
+            </div>
+
+            <div className="uncommon-card">
+              <div className="icon-wrapper">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" style={{ color: 'var(--primary)' }}>
+                  <path d="M6 3h12l4 6-10 12L2 9z" fill="rgba(227, 30, 36, 0.05)" />
+                </svg>
+              </div>
+              <h3 style={{ fontWeight: 900, fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '0.2em', marginBottom: '0.5rem' }}>
+                Premium Care
+              </h3>
+              <div className="divider" />
+              <p style={{ color: 'var(--text-dim)', fontSize: '0.9rem', lineHeight: 1.8 }}>
+                Molecular hair health through the world's most exclusive scientific product lines. Pure performance.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* BOOKING CALLOUT */}
-      <section style={{ padding: '6rem 0' }}>
+      <section style={{ padding: '8rem 0' }}>
         <div className="container">
           <div className="card" style={{
-            padding: '6rem 4rem', textAlign: 'center',
-            background: 'linear-gradient(135deg, rgba(227, 30, 36, 0.2) 0%, rgba(0,0,0,1) 100%)',
-            border: '1px solid rgba(227, 30, 36, 0.3)',
-            position: 'relative', overflow: 'hidden'
+            padding: '7rem 4rem', textAlign: 'center',
+            background: 'linear-gradient(135deg, rgba(227, 30, 36, 0.25) 0%, rgba(0,0,0,1) 100%)',
+            border: '1px solid rgba(227, 30, 36, 0.4)',
+            position: 'relative', overflow: 'hidden',
+            borderRadius: '12px'
           }}>
             <div style={{ position: 'relative', zIndex: 1 }}>
-              <h2 className="font-serif" style={{ fontSize: 'clamp(2.5rem, 6vw, 5rem)', fontWeight: 800, marginBottom: '2rem', lineHeight: 0.9 }}>
+              <h2 className="font-serif" style={{ fontSize: 'clamp(3rem, 7vw, 5.5rem)', fontWeight: 800, marginBottom: '2.5rem', lineHeight: 0.85, letterSpacing: '-0.04em' }}>
                 Your <span className="text-gradient">Desired</span> <br /> Look Awaits.
               </h2>
-              <p style={{ color: 'var(--text-muted)', maxWidth: 560, margin: '0 auto 4rem', lineHeight: 1.8, fontSize: '1.15rem' }}>
-                Join the elite circle of clients who trust Ruwan Chandana for their technical precision.
+              <p style={{ color: 'var(--text-muted)', maxWidth: 540, margin: '0 auto 4rem', lineHeight: 1.8, fontSize: '1.25rem' }}>
+                Secure your consultation with Ruwan Chandana today. Spots in the studio are limited by design.
               </p>
-              <Link href="/booking" className="btn-primary" style={{ padding: '1.25rem 5rem' }}>
-                Book Your Appointment
+              <Link href="/booking" className="btn-primary" style={{ padding: '1.25rem 5rem', fontSize: '1.05rem' }}>
+                Claim Your Session
               </Link>
             </div>
             <div style={{
-              position: 'absolute', right: '-5%', bottom: '-15%',
-              fontSize: '30rem', opacity: 0.04, pointerEvents: 'none', transform: 'rotate(-25deg)'
+              position: 'absolute', right: '-8%', bottom: '-15%',
+              fontSize: '35rem', opacity: 0.04, pointerEvents: 'none', transform: 'rotate(-25deg)'
             }}>✂️</div>
           </div>
         </div>
