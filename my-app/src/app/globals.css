@@ -6,18 +6,18 @@
 
 :root {
   --primary: #E31E24;
-  /* Red from the logo */
   --primary-light: #FF3D43;
   --primary-dark: #B51419;
   --black: #000000;
   --surface: #0A0A0A;
   --card: #111111;
-  --border: #222222;
+  --border: #1D1D1D;
   --text: #FFFFFF;
   --text-muted: #AAAAAA;
   --text-dim: #666666;
   --white: #FFFFFF;
   --grey: #9E9E9E;
+  --glow: rgba(227, 30, 36, 0.3);
 }
 
 * {
@@ -40,7 +40,7 @@ body {
 
 /* Scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 4px;
 }
 
 ::-webkit-scrollbar-track {
@@ -49,7 +49,7 @@ body {
 
 ::-webkit-scrollbar-thumb {
   background: var(--border);
-  border-radius: 3px;
+  border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -104,112 +104,159 @@ a {
 .btn-primary {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem;
   background: linear-gradient(135deg, var(--primary), var(--primary-dark));
   color: white;
   padding: 0.875rem 2rem;
-  border-radius: 8px;
-  /* Slightly sharper for the technical look of the logo */
-  font-weight: 700;
-  font-size: 0.9rem;
+  border-radius: 4px;
+  font-weight: 800;
+  font-size: 0.85rem;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.1em;
   cursor: pointer;
   border: none;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 20px rgba(227, 30, 36, 0.2);
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  position: relative;
+  overflow: hidden;
 }
 
 .btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(227, 30, 36, 0.4);
-  background: linear-gradient(135deg, var(--primary-light), var(--primary));
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 10px 25px rgba(227, 30, 36, 0.3);
+}
+
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: all 0.6s;
+}
+
+.btn-primary:hover::after {
+  left: 100%;
 }
 
 .btn-secondary {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem;
   background: transparent;
   color: white;
   padding: 0.875rem 2rem;
-  border-radius: 8px;
-  font-weight: 700;
-  font-size: 0.9rem;
+  border-radius: 4px;
+  font-weight: 800;
+  font-size: 0.85rem;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.1em;
   cursor: pointer;
-  border: 1.5px solid var(--border);
-  transition: all 0.3s ease;
+  border: 1px solid var(--border);
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .btn-secondary:hover {
   border-color: var(--primary);
-  color: var(--primary);
-  transform: translateY(-2px);
+  background: rgba(227, 30, 36, 0.05);
+  transform: translateY(-3px);
 }
 
-/* Card */
-.card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  transition: all 0.3s ease;
-}
-
-.card:hover {
-  border-color: rgba(227, 30, 36, 0.3);
-  transform: translateY(-4px);
-}
-
-/* Input */
-.input {
-  width: 100%;
+/* Uncommon Card Animation */
+.uncommon-card {
+  position: relative;
+  padding: 2.5rem;
   background: var(--surface);
   border: 1px solid var(--border);
-  color: var(--text);
-  padding: 0.875rem 1.25rem;
-  border-radius: 8px;
-  font-size: 0.95rem;
-  outline: none;
-  transition: border-color 0.2s;
-}
-
-.input:focus {
-  border-color: var(--primary);
-}
-
-.input-label {
-  display: block;
-  font-size: 0.75rem;
-  font-weight: 700;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  margin-bottom: 0.5rem;
-}
-
-/* Tag */
-.badge {
-  display: inline-block;
-  background: rgba(227, 30, 36, 0.1);
-  color: var(--primary);
-  border: 1px solid rgba(227, 30, 36, 0.2);
-  padding: 0.3rem 1rem;
   border-radius: 4px;
-  font-size: 0.75rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+  cursor: default;
+}
+
+.uncommon-card:hover {
+  border-color: var(--primary);
+  background: #0f0f0f;
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+}
+
+.uncommon-card .icon-wrapper {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  transition: all 0.5s ease;
+  filter: grayscale(1);
+  opacity: 0.7;
+}
+
+.uncommon-card:hover .icon-wrapper {
+  filter: grayscale(0);
+  opacity: 1;
+  transform: scale(1.2) rotate(10deg);
+}
+
+.uncommon-card .divider {
+  width: 30px;
+  height: 2px;
+  background: var(--border);
+  margin: 1rem 0;
+  transition: all 0.5s ease;
+}
+
+.uncommon-card:hover .divider {
+  width: 100%;
+  background: var(--primary);
+}
+
+/* Animations */
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-reveal-up {
+  animation: reveal-up 1s cubic-bezier(0.23, 1, 0.32, 1) forwards;
 }
 
 .dot-red {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
   background: var(--primary);
   border-radius: 50%;
   display: inline-block;
-  box-shadow: 0 0 10px var(--primary);
+  box-shadow: 0 0 12px var(--primary);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  50% {
+    transform: scale(1.5);
+    opacity: 0.6;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 .grid-2 {
