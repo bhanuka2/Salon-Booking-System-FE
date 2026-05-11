@@ -37,7 +37,7 @@ export default function Navbar() {
             }}>
                 {/* Logo */}
                 <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                    <div style={{ position: 'relative', width: 140, height: 45 }}>
+                    <div style={{ position: 'relative', width: 180, height: 60 }}>
                         <Image
                             src="/logo.png"
                             alt="Salon Ru Zero One"
