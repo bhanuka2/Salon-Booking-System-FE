@@ -1,8 +1,10 @@
 'use client'
 import { useState, useEffect } from 'react'
+import Link from 'next/link'
 
 export default function BookingPage() {
     const [services, setServices] = useState([])
+    const [existingBookings, setExistingBookings] = useState([])
     const [loading, setLoading] = useState(true)
     const [formData, setFormData] = useState({
         name: '',
@@ -13,18 +15,33 @@ export default function BookingPage() {
     })
     const [submitting, setSubmitting] = useState(false)
     const [success, setSuccess] = useState(false)
+    const [error, setError] = useState('')
+
+    const timeSlots = ['09:00 AM', '10:00 AM', '11:00 AM', '12:00 PM', '01:00 PM', '02:00 PM', '03:00 PM', '04:00 PM', '05:00 PM']
 
     useEffect(() => {
-        fetch('/api/services')
-            .then(res => res.json())
-            .then(data => {
-                setServices(data)
-                setLoading(false)
-            })
+        Promise.all([
+            fetch('/api/services').then(res => res.json()),
+            fetch('/api/bookings').then(res => res.json())
+        ]).then(([servicesData, bookingsData]) => {
+            setServices(servicesData)
+            setExistingBookings(bookingsData)
+            setLoading(false)
+        }).catch(err => {
+            console.error('Error fetching data:', err)
+            setLoading(false)
+        })
     }, [])
+
+    const isSlotBooked = (date, time) => {
+        return existingBookings.some(b => b.date === date && b.time === time)
+    }
+
+    const availableSlots = timeSlots.filter(slot => !isSlotBooked(formData.date, slot))
 
     const handleSubmit = async (e) => {
         e.preventDefault()
+        setError('')
         setSubmitting(true)
 
         try {
@@ -34,31 +51,49 @@ export default function BookingPage() {
                 body: JSON.stringify(formData)
             })
 
+            const result = await res.json()
+
             if (res.ok) {
                 setSuccess(true)
+                // Refresh bookings to prevent others from seeing the slot as available immediately
+                const refreshRes = await fetch('/api/bookings')
+                const refreshedBookings = await refreshRes.json()
+                setExistingBookings(refreshedBookings)
             } else {
-                alert('Something went wrong. Please try again.')
+                setError(result.error || 'Something went wrong. Please try again.')
             }
         } catch (err) {
+            setError('Connection error. Please try again later.')
             console.error(err)
         } finally {
             setSubmitting(false)
         }
     }
 
-    if (success) {
+    // Get today's date in YYYY-MM-DD format for the 'min' attribute
+    const today = new Date().toISOString().split('T')[0]
+
+    if (loading) {
         return (
             <div className="section" style={{ paddingTop: '150px', textAlign: 'center', minHeight: '80vh' }}>
-                <div className="container">
-                    <div style={{ maxWidth: 500, margin: '0 auto' }} className="card p-8">
-                        <div style={{ fontSize: '4rem', marginBottom: '1.5rem' }}>✨</div>
-                        <h1 className="font-serif" style={{ fontSize: '2rem', marginBottom: '1rem' }}>Appointment Confirmed!</h1>
-                        <p style={{ color: 'var(--text-muted)', lineHeight: 1.8, marginBottom: '2rem' }}>
-                            Thank you {formData.name}. Your appointment for {services.find(s => s.id === parseInt(formData.serviceId))?.title} has been scheduled for {formData.date} at {formData.time}.
+                <div style={{ color: 'var(--primary)', fontWeight: 600 }}>Loading Appointment Schedule...</div>
+            </div>
+        )
+    }
+
+    if (success) {
+        return (
+            <div className="section" style={{ paddingTop: '150px', textAlign: 'center', minHeight: '85vh' }}>
+                <div className="container animate-reveal-up">
+                    <div style={{ maxWidth: 600, margin: '0 auto', background: 'rgba(20,20,20,0.8)', backdropFilter: 'blur(10px)', border: '1px solid var(--primary)', padding: '4rem 2rem' }}>
+                        <div style={{ fontSize: '5rem', marginBottom: '2rem' }}>💎</div>
+                        <h1 className="font-serif" style={{ fontSize: '2.5rem', fontWeight: 800, marginBottom: '1.5rem', letterSpacing: '-0.02em' }}>Success! You're In.</h1>
+                        <p style={{ color: 'var(--text-muted)', fontSize: '1.1rem', lineHeight: 1.8, marginBottom: '3rem', maxWidth: 450, margin: '0 auto 3rem' }}>
+                            Your appointment for <strong style={{ color: 'var(--text)' }}>{services.find(s => s.id === parseInt(formData.serviceId))?.title}</strong> is confirmed for <strong style={{ color: 'var(--text)' }}>{formData.date}</strong> at <strong style={{ color: 'var(--text)' }}>{formData.time}</strong>.
                         </p>
-                        <button onClick={() => window.location.href = '/'} className="btn-primary">
-                            Return Home
-                        </button>
+                        <Link href="/" className="btn-primary" style={{ padding: '1rem 3rem' }}>
+                            Back to Studio
+                        </Link>
                     </div>
                 </div>
             </div>
@@ -66,84 +101,95 @@ export default function BookingPage() {
     }
 
     return (
-        <div className="section" style={{ paddingTop: '150px' }}>
+        <div className="section" style={{ paddingTop: '120px', minHeight: '100vh', background: 'radial-gradient(circle at top right, #0f0f0f, #000)' }}>
             <div className="container">
-                <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) 400px', gap: '4rem', alignItems: 'start' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1.2fr) 0.8fr', gap: '5rem', alignItems: 'start' }} className="responsive-grid">
 
-                    {/* Form Side */}
-                    <div>
-                        <div className="badge" style={{ marginBottom: '1rem' }}>Book Online</div>
-                        <h1 className="font-serif" style={{ fontSize: 'clamp(2.2rem, 5vw, 3rem)', fontWeight: 700, marginBottom: '1.5rem' }}>
-                            Reserve Your <span className="text-gradient">Experience</span>
+                    <div className="animate-reveal-up">
+                        <div className="badge" style={{ marginBottom: '1.5rem', background: 'rgba(227, 30, 36, 0.05)' }}>Booking Engine 2.0</div>
+                        <h1 className="font-serif" style={{ fontSize: 'clamp(2.5rem, 6vw, 4rem)', fontWeight: 800, lineHeight: 1, marginBottom: '2rem', letterSpacing: '-0.04em' }}>
+                            Secure Your <span className="text-gradient">Spot.</span>
                         </h1>
-                        <p style={{ color: 'var(--text-muted)', marginBottom: '3rem', maxWidth: 500 }}>
-                            Complete the form below to book your treatment. We'll send a confirmation email with all the details shortly.
+                        <p style={{ color: 'var(--text-muted)', fontSize: '1.1rem', marginBottom: '4rem', maxWidth: 550, lineHeight: 1.8 }}>
+                            Our master technicians are in high demand. Reserve your session today to guarantee availability.
                         </p>
 
-                        <form onSubmit={handleSubmit} style={{ display: 'grid', gap: '1.5rem' }}>
+                        <form onSubmit={handleSubmit} style={{ display: 'grid', gap: '2rem' }}>
+                            {error && (
+                                <div style={{ padding: '1rem', background: 'rgba(227, 30, 36, 0.1)', border: '1px solid var(--primary)', color: 'var(--primary)', fontWeight: 600, fontSize: '0.9rem' }}>
+                                    {error}
+                                </div>
+                            )}
+
                             <div className="grid-2">
-                                <div>
-                                    <label className="input-label">Full Name</label>
+                                <div className="input-group">
+                                    <label style={{ fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', color: 'var(--text-dim)', marginBottom: '0.75rem', display: 'block', letterSpacing: '0.1em' }}>Client Name</label>
                                     <input
                                         type="text"
                                         required
-                                        className="input"
-                                        placeholder="Enter your name"
+                                        placeholder="Full Name"
+                                        style={{ width: '100%', background: '#0a0a0a', border: '1px solid var(--border)', padding: '1.2rem', color: 'white', fontSize: '0.95rem' }}
                                         value={formData.name}
                                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                                     />
                                 </div>
-                                <div>
-                                    <label className="input-label">Email Address</label>
+                                <div className="input-group">
+                                    <label style={{ fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', color: 'var(--text-dim)', marginBottom: '0.75rem', display: 'block', letterSpacing: '0.1em' }}>Comm. Channel</label>
                                     <input
                                         type="email"
                                         required
-                                        className="input"
-                                        placeholder="name@example.com"
+                                        placeholder="email@example.com"
+                                        style={{ width: '100%', background: '#0a0a0a', border: '1px solid var(--border)', padding: '1.2rem', color: 'white', fontSize: '0.95rem' }}
                                         value={formData.email}
                                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                                     />
                                 </div>
                             </div>
 
-                            <div>
-                                <label className="input-label">Select Service</label>
+                            <div className="input-group">
+                                <label style={{ fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', color: 'var(--text-dim)', marginBottom: '0.75rem', display: 'block', letterSpacing: '0.1em' }}>Treatment Selection</label>
                                 <select
                                     required
-                                    className="input"
+                                    style={{ width: '100%', background: '#0a0a0a', border: '1px solid var(--border)', padding: '1.2rem', color: 'white', fontSize: '0.95rem', appearance: 'none' }}
                                     value={formData.serviceId}
                                     onChange={(e) => setFormData({ ...formData, serviceId: e.target.value })}
                                 >
-                                    <option value="">Choose a treatment...</option>
+                                    <option value="">Select Professional Service</option>
                                     {services.map(s => (
-                                        <option key={s.id} value={s.id}>{s.title} — ${s.price}</option>
+                                        <option key={s.id} value={s.id}>{s.title}</option>
                                     ))}
                                 </select>
                             </div>
 
                             <div className="grid-2">
-                                <div>
-                                    <label className="input-label">Preferred Date</label>
+                                <div className="input-group">
+                                    <label style={{ fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', color: 'var(--text-dim)', marginBottom: '0.75rem', display: 'block', letterSpacing: '0.1em' }}>Date Placement</label>
                                     <input
                                         type="date"
                                         required
-                                        className="input"
+                                        min={today}
+                                        style={{ width: '100%', background: '#0a0a0a', border: '1px solid var(--border)', padding: '1.2rem', color: 'white', fontSize: '0.95rem' }}
                                         value={formData.date}
-                                        onChange={(e) => setFormData({ ...formData, date: e.target.value })}
+                                        onChange={(e) => setFormData({ ...formData, date: e.target.value, time: '' })}
                                     />
                                 </div>
-                                <div>
-                                    <label className="input-label">Preferred Time</label>
+                                <div className="input-group">
+                                    <label style={{ fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', color: 'var(--text-dim)', marginBottom: '0.75rem', display: 'block', letterSpacing: '0.1em' }}>Time Window</label>
                                     <select
                                         required
-                                        className="input"
+                                        disabled={!formData.date}
+                                        style={{ width: '100%', background: '#0a0a0a', border: '1px solid var(--border)', padding: '1.2rem', color: 'white', fontSize: '0.95rem', opacity: formData.date ? 1 : 0.5 }}
                                         value={formData.time}
                                         onChange={(e) => setFormData({ ...formData, time: e.target.value })}
                                     >
-                                        <option value="">Select time...</option>
-                                        {['09:00 AM', '10:00 AM', '11:00 AM', '01:00 PM', '02:00 PM', '03:00 PM', '04:00 PM', '05:00 PM'].map(t => (
-                                            <option key={t} value={t}>{t}</option>
-                                        ))}
+                                        <option value="">{formData.date ? 'Select Available Window' : 'Choose Date First'}</option>
+                                        {availableSlots.length > 0 ? (
+                                            availableSlots.map(t => (
+                                                <option key={t} value={t}>{t}</option>
+                                            ))
+                                        ) : formData.date && (
+                                            <option disabled>No Remaining Slots Today</option>
+                                        )}
                                     </select>
                                 </div>
                             </div>
@@ -152,37 +198,33 @@ export default function BookingPage() {
                                 type="submit"
                                 disabled={submitting}
                                 className="btn-primary"
-                                style={{ marginTop: '1rem', width: '100%', justifyContent: 'center' }}
+                                style={{ marginTop: '2rem', width: '100%', padding: '1.5rem', fontSize: '1rem' }}
                             >
-                                {submitting ? 'Processing...' : 'Confirm Appointment'}
+                                {submitting ? 'Authenticating...' : 'Confirm Technical Entry'}
                             </button>
                         </form>
                     </div>
 
-                    {/* Info Side */}
                     <div style={{ position: 'sticky', top: '120px' }}>
-                        <div className="card" style={{ padding: '2.5rem' }}>
-                            <h3 style={{ fontSize: '1.25rem', fontWeight: 700, marginBottom: '1.5rem' }}>Why Book Online?</h3>
-                            <ul style={{ listStyle: 'none', display: 'grid', gap: '1.25rem' }}>
+                        <div className="card" style={{ padding: '3rem', border: '1px solid var(--border)', background: 'rgba(15,15,15,0.5)', backdropFilter: 'blur(20px)' }}>
+                            <h3 style={{ fontSize: '1.5rem', fontWeight: 800, marginBottom: '2rem', letterSpacing: '-0.02em' }}>Technical Benefits</h3>
+                            <div style={{ display: 'grid', gap: '2.5rem' }}>
                                 {[
-                                    { icon: '⚡', title: 'Instant Confirmation', desc: 'Secure your spot in seconds.' },
-                                    { icon: '📅', title: 'Flexible Scheduling', desc: 'Modify or cancel 24h before.' },
-                                    { icon: '🎁', title: 'Exclusive Rewards', desc: 'Earn points on every booking.' }
+                                    { title: 'Strict Availability', desc: 'Once a slot is confirmed, it is immediately removed from the global queue.' },
+                                    { title: 'Priority Access', desc: 'Online bookings receive priority placement in the studio workflow.' },
+                                    { title: 'Instant Protocol', desc: 'Secure encryption for all client communication and data.' }
                                 ].map(item => (
-                                    <li key={item.title} style={{ display: 'flex', gap: '1rem' }}>
-                                        <div style={{ color: 'var(--orange)', fontSize: '1.2rem' }}>{item.icon}</div>
-                                        <div>
-                                            <div style={{ fontWeight: 600, fontSize: '0.95rem', marginBottom: '0.2rem' }}>{item.title}</div>
-                                            <div style={{ color: 'var(--text-muted)', fontSize: '0.85rem', lineHeight: 1.5 }}>{item.desc}</div>
-                                        </div>
-                                    </li>
+                                    <div key={item.title}>
+                                        <div style={{ fontWeight: 800, fontSize: '0.8rem', textTransform: 'uppercase', color: 'var(--primary)', marginBottom: '0.5rem', letterSpacing: '0.1em' }}>{item.title}</div>
+                                        <div style={{ color: 'var(--text-muted)', fontSize: '0.95rem', lineHeight: 1.6 }}>{item.desc}</div>
+                                    </div>
                                 ))}
-                            </ul>
+                            </div>
 
-                            <div style={{ marginTop: '2.5rem', paddingTop: '2.5rem', borderTop: '1px solid var(--border)' }}>
-                                <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem', textAlign: 'center', fontStyle: 'italic' }}>
-                                    "Best salon experience I've ever had. The online booking is seamless."
-                                    <span style={{ display: 'block', color: 'var(--text)', fontWeight: 600, marginTop: '0.5rem', fontStyle: 'normal' }}>— Sarah J.</span>
+                            <div style={{ marginTop: '4rem', padding: '2rem', border: '1px solid var(--border)', background: '#000' }}>
+                                <p style={{ color: 'var(--text-dim)', fontSize: '0.9rem', lineHeight: 1.8, textAlign: 'center' }}>
+                                    "The technical precision of the booking process reflects the quality of their artistry."
+                                    <span style={{ display: 'block', color: 'var(--primary)', fontWeight: 900, marginTop: '1rem', fontStyle: 'normal', fontSize: '0.75rem', textTransform: 'uppercase' }}>— Industry Review</span>
                                 </p>
                             </div>
                         </div>
@@ -192,10 +234,15 @@ export default function BookingPage() {
             </div>
 
             <style>{`
-        @media (max-width: 900px) {
-          .container > div { grid-template-columns: 1fr !important; }
-        }
-      `}</style>
+                .input-group input:focus, .input-group select:focus {
+                    outline: none;
+                    border-color: var(--primary) !important;
+                    background: #111 !important;
+                }
+                @media (max-width: 1024px) {
+                    .responsive-grid { grid-template-columns: 1fr !important; gap: 4rem !important; }
+                }
+            `}</style>
         </div>
     )
 }

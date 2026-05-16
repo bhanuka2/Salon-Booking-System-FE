@@ -8,9 +8,10 @@ export async function POST(request) {
         const body = await request.json()
         const { name, email, serviceId, date, time } = body
 
-        // Simple validation
-        if (!name || !email || !serviceId || !date || !time) {
-            return NextResponse.json({ error: 'Missing required fields' }, { status: 400 })
+        // Check for existing booking at the same date and time
+        const conflict = bookings.find(b => b.date === date && b.time === time);
+        if (conflict) {
+            return NextResponse.json({ error: 'This time slot is already reserved. Please choose another time.' }, { status: 409 });
         }
 
         const newBooking = {
