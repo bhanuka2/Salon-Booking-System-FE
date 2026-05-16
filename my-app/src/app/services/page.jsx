@@ -70,26 +70,36 @@ export default function ServicesPage() {
 
         <div className="grid-3">
           {filteredServices.map(s => (
-            <div key={s.id} className="card" style={{ padding: '2rem', display: 'flex', flexDirection: 'column', height: '100%' }}>
-              <div style={{ fontSize: '2.5rem', marginBottom: '1.5rem' }}>{s.image}</div>
-              <div className="badge" style={{ alignSelf: 'flex-start', fontSize: '0.7rem', marginBottom: '1rem', opacity: 0.8 }}>
-                {s.category}
+            <div key={s.id} className="card" style={{ display: 'flex', flexDirection: 'column', height: '100%', overflow: 'hidden', padding: 0 }}>
+              <div style={{ width: '100%', height: '220px', overflow: 'hidden' }}>
+                <img
+                  src={s.image}
+                  alt={s.title}
+                  style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)' }}
+                  className="service-image"
+                />
               </div>
-              <h3 style={{ fontSize: '1.25rem', fontWeight: 700, marginBottom: '1rem' }}>{s.title}</h3>
-              <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '2rem', flexGrow: 1 }}>
-                A premium {s.category.toLowerCase()} treatment designed to bring out your best features and leave you feeling refreshed.
-              </p>
-              <div style={{
-                borderTop: '1px solid var(--border)', paddingTop: '1.5rem',
-                display: 'flex', justifyContent: 'space-between', alignItems: 'center'
-              }}>
-                <div>
-                  <div style={{ color: 'var(--orange)', fontWeight: 800, fontSize: '1.2rem' }}>${s.price}</div>
-                  <div style={{ color: 'var(--text-dim)', fontSize: '0.8rem' }}>{s.duration}</div>
+              <div style={{ padding: '2rem', flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
+                <div className="badge" style={{ alignSelf: 'flex-start', fontSize: '0.7rem', marginBottom: '1rem', opacity: 0.8 }}>
+                  {s.category}
                 </div>
-                <a href="/booking" className="btn-primary" style={{ padding: '0.6rem 1.2rem', fontSize: '0.85rem' }}>
-                  Book Now
-                </a>
+                <h3 style={{ fontSize: '1.25rem', fontWeight: 700, marginBottom: '0.75rem' }}>{s.title}</h3>
+                <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '2rem', flexGrow: 1, lineHeight: 1.6 }}>
+                  A premium {s.category.toLowerCase()} treatment designed to bring out your best features and leave you feeling refreshed.
+                </p>
+                <div style={{
+                  borderTop: '1px solid var(--border)', paddingTop: '1.5rem',
+                  display: 'flex', justifyContent: 'space-between', alignItems: 'center'
+                }}>
+                  <div>
+                    <div style={{ color: 'var(--text-dim)', fontSize: '0.75rem', fontWeight: 600, letterSpacing: '1px', textTransform: 'uppercase' }}>
+                      {s.duration}
+                    </div>
+                  </div>
+                  <a href="/booking" className="btn-primary" style={{ padding: '0.6rem 1.4rem', fontSize: '0.85rem' }}>
+                    Book Now
+                  </a>
+                </div>
               </div>
             </div>
           ))}

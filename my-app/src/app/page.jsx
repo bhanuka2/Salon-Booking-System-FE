@@ -7,28 +7,24 @@ const featuredServices = [
     image: '/service_haircut.png',
     title: 'Master Haircut',
     desc: 'Signature precision cuts by Ruwan Chandana.',
-    price: '$45',
     time: '45 min'
   },
   {
     image: '/service_coloring.png',
     title: 'Technical Color',
     desc: 'Advanced coloring techniques, from balayage to gloss.',
-    price: '$95',
     time: '120 min'
   },
   {
     image: '/service_grooming.png',
     title: 'Grooming Luxe',
     desc: 'Premium beard shaping and facial grooming.',
-    price: '$35',
     time: '30 min'
   },
   {
     image: '/service_scalp.png',
     title: 'Scalp Therapy',
     desc: 'Invigorating treatments to nourish and revitalize.',
-    price: '$60',
     time: '45 min'
   },
 ]
